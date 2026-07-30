@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { Product, SortDirection, SortField } from '@/types/product';
 import css from './ProductsTable.module.css';
-import { usePathname } from 'next/navigation';
 
 interface ProductsTableProps {
   products: Product[];
@@ -25,7 +24,6 @@ export default function ProductsTable({
     if (sortBy !== field) return '↑↓';
     return sortDirection === 'asc' ? '↑' : '↓';
   };
-  const pathname = usePathname();
   return (
     <div className={css.tableShell}>
       <table className={css.productsTable}>
