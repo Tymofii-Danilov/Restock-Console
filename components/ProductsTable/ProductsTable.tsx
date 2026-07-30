@@ -56,9 +56,13 @@ export default function ProductsTable({
         </thead>
         <tbody>
           {products.map(product => {
-            const isLow = product.availabilityStatus === 'Low Stock' || product.stock === 0;
+            const isLow = product.availabilityStatus === 'Low Stock';
+            const isNone = product.stock === 0;
             return (
-              <tr key={product.id} className={isLow ? css.lowStockRow : undefined}>
+              <tr
+                key={product.id}
+                className={isLow ? css.lowStockRow : isNone ? css.noStockRow : undefined}
+              >
                 <td>
                   <Link href={`/product/${product.id}?from=${encodeURIComponent(returnUrl)}`}>
                     <Image
@@ -85,8 +89,11 @@ export default function ProductsTable({
                 </td>
                 <td className={css.numberCell}>${product.price.toFixed(2)}</td>
                 <td className={css.numberCell}>
-                  <span className={isLow ? css.stockLow : css.stockOk}>{product.stock}</span>
+                  <span className={isLow ? css.stockLow : isNone ? css.noneInStock : css.stockOk}>
+                    {product.stock}
+                  </span>
                   {isLow && <span className={css.lowMarker}>LOW</span>}
+                  {isNone && <span className={css.noneMarker}>NONE</span>}
                 </td>
               </tr>
             );

@@ -64,6 +64,13 @@
   background: #fff3e0;
 }
 
+.productsTable .noStockRow {
+  background: #fff0f0;
+}
+.productsTable .noStockRow:hover {
+  background: #ffe0e0;
+}
+
 .sortButton {
   border: 0;
   background: none;
@@ -121,6 +128,10 @@
   color: #15803d;
   font-weight: 600;
 }
+.noneInStock {
+  color: red;
+  font-weight: 600;
+}
 .lowMarker {
   margin-left: 25px;
   font-size: 9px;
@@ -131,7 +142,16 @@
   padding: 2px 5px;
   border-radius: 3px;
 }
-
+.noneMarker {
+  margin-left: 25px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: white;
+  background: red;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
 @media (max-width: 760px) {
   .productsTable {
     min-width: 720px;
