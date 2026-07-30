@@ -6,7 +6,11 @@ import css from './Header.module.css';
 import Image from 'next/image';
 
 export default function Header() {
-  const count = useOrderStore(state => state.count);
+  const totalCount = useOrderStore(state =>
+    Object.values(state.items).reduce((total, quantity) => {
+      return total + quantity;
+    }, 0)
+  );
   const reset = useOrderStore(state => state.reset);
   return (
     <section className={css.headerSection}>
@@ -17,14 +21,14 @@ export default function Header() {
             <span>Restock Console</span>
           </Link>
         </div>
-        <div className={`${css.orderCounter} ${count > 0 ? css.orderCounterActive : ''}`}>
+        <div className={`${css.orderCounter} ${totalCount > 0 ? css.orderCounterActive : ''}`}>
           <svg className={css.cartIcon} width={20} height={20}>
             <use href="/cart.svg"></use>
           </svg>
           <span>Order:</span>
-          <strong>{count}</strong>
-          {count > 0 && (
-            <button disabled={count === 0} className={css.reset} onClick={reset}>
+          <strong>{totalCount}</strong>
+          {totalCount > 0 && (
+            <button disabled={totalCount === 0} className={css.reset} onClick={reset}>
               X
             </button>
           )}

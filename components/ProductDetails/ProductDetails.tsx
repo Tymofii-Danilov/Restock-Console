@@ -15,9 +15,12 @@ export default function ProductDetails({ id, from }: { id: string; from: string 
   const [reviewOrder, setReviewOrder] = useState<'newest' | 'oldest'>('newest');
   const [added, setAdded] = useState(false);
   const [addCount, setAddCount] = useState(1);
-  const increment = useOrderStore(state => state.increment);
+
   const productQuery = useQuery({ queryKey: ['product', id], queryFn: () => getProduct(id) });
   const product = productQuery.data;
+
+  const quantity = useOrderStore(state => (product && state.items[product.id]) ?? 0);
+  const increment = useOrderStore(state => state.increment);
 
   if (productQuery.isPending)
     return (
@@ -36,6 +39,11 @@ export default function ProductDetails({ id, from }: { id: string; from: string 
     );
   }
 
+  const availableNumber = product.stock - quantity;
+  const isOutOfStock = availableNumber <= 0;
+  const isAddCountTooLarge = addCount > availableNumber;
+  const isLimitReached = quantity >= product.stock;
+
   const isLow = product.availabilityStatus === 'Low Stock';
   const images = product.images.length ? product.images : [product.thumbnail];
   const averageRating = product.reviews.length
@@ -46,8 +54,10 @@ export default function ProductDetails({ id, from }: { id: string; from: string 
     return reviewOrder === 'newest' ? delta : -delta;
   });
 
-  const addToOrder = (addCount: number) => {
-    increment(addCount);
+  const addToOrder = (id: number, addCount: number, stock: number) => {
+    increment(id, addCount, stock);
+    const remainingAfterAdd = stock - quantity - addCount;
+    setAddCount(Math.max(1, Math.min(addCount, remainingAfterAdd)));
     setAdded(true);
     window.setTimeout(() => setAdded(false), 1400);
   };
@@ -117,22 +127,31 @@ export default function ProductDetails({ id, from }: { id: string; from: string 
             <button
               type="button"
               className={`${css.addButton} ${added ? css.addedButton : ''}`}
-              onClick={() => addToOrder(addCount)}
+              onClick={() => {
+                addToOrder(product.id, addCount, product.stock);
+              }}
+              disabled={isOutOfStock || isAddCountTooLarge}
             >
-              {added ? `✓ Added to order: ${addCount}` : `+ Add to order: ${addCount}`}
+              {isOutOfStock
+                ? 'Out of stock'
+                : isAddCountTooLarge
+                  ? `Only ${availableNumber} available`
+                  : added
+                    ? `✓ Added to order: ${addCount}`
+                    : `+ Add to order: ${addCount}`}
             </button>
             <div className={css.addRemoveBtns}>
               <button
-                onClick={() => addCount < Number(product.stock) && setAddCount(addCount + 1)}
+                onClick={() => setAddCount(prev => prev + 1)}
                 className={css.addRemove}
-                disabled={addCount === Number(product.stock)}
+                disabled={addCount >= availableNumber}
               >
                 +
               </button>
               <button
-                onClick={() => addCount > 1 && setAddCount(addCount - 1)}
+                onClick={() => setAddCount(prev => prev - 1)}
                 className={css.addRemove}
-                disabled={addCount === 1}
+                disabled={addCount === 1 || isOutOfStock}
               >
                 -
               </button>

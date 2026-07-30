@@ -56,7 +56,7 @@ export default function ProductsTable({
         </thead>
         <tbody>
           {products.map(product => {
-            const isLow = product.availabilityStatus === 'Low Stock';
+            const isLow = product.availabilityStatus === 'Low Stock' || product.stock === 0;
             return (
               <tr key={product.id} className={isLow ? css.lowStockRow : undefined}>
                 <td>
