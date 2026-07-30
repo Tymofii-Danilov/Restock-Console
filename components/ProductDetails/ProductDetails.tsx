@@ -42,9 +42,9 @@ export default function ProductDetails({ id, from }: { id: string; from: string 
   const availableNumber = product.stock - quantity;
   const isOutOfStock = availableNumber <= 0;
   const isAddCountTooLarge = addCount > availableNumber;
-  const isLimitReached = quantity >= product.stock;
 
   const isLow = product.availabilityStatus === 'Low Stock';
+  const isNone = product.stock === 0;
   const images = product.images.length ? product.images : [product.thumbnail];
   const averageRating = product.reviews.length
     ? product.reviews.reduce((sum, review) => sum + review.rating, 0) / product.reviews.length
@@ -114,7 +114,9 @@ export default function ProductDetails({ id, from }: { id: string; from: string 
           </div>
           <p className={css.description}>{product.description}</p>
 
-          <div className={`${css.stockPanel} ${isLow ? css.stockPanelLow : ''}`}>
+          <div
+            className={`${css.stockPanel} ${isLow ? css.stockPanelLow : isNone ? css.stockPanelNone : ''}`}
+          >
             <div>
               <span className={css.statusDot} /> <strong>{product.availabilityStatus}</strong>
             </div>

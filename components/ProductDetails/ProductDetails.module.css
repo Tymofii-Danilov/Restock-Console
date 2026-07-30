@@ -109,6 +109,11 @@
   border-color: #fed7aa;
   color: #9a3412;
 }
+.stockPanelNone {
+  background: #ffeded;
+  border-color: #feaaaa;
+  color: #9a1212;
+}
 .statusDot {
   display: inline-block;
   width: 8px;
@@ -119,6 +124,9 @@
 }
 .stockPanelLow .statusDot {
   background: #f97316;
+}
+.stockPanelNone .statusDot {
+  background: #f91616;
 }
 .stockPanel em {
   font-style: normal;
