@@ -1,0 +1,150 @@
+.pageHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.pageHeading h1 {
+  font-size: 22px;
+  margin: 0 0 2px;
+}
+.pageHeading p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.lowStockCounter {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #9a3412;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 12px;
+}
+
+.lowStockCounter span {
+  font-weight: 800;
+  font-size: 15px;
+  margin-right: 4px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.selectControl select {
+  width: 100%;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: white;
+  color: #111827;
+  outline: none;
+}
+
+.selectControl select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px #dbeafe;
+}
+
+.clearButton {
+  height: 36px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  border-radius: 6px;
+  padding: 0 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.clearButton:hover {
+  background: #cbd5e1;
+}
+
+.clearButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.categoryClearWrap {
+  display: flex;
+  gap: 10px;
+}
+
+.paginationBar {
+  color: #64748b;
+}
+
+.paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.paginationControls button {
+  border: 1px solid #cbd5e1;
+  background: white;
+  border-radius: 5px;
+  width: 100%;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.paginationControls button:hover {
+  background: #cbd5e1;
+}
+
+.paginationControls button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.paginationControls strong {
+  font-size: 12px;
+  color: #475569;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 760px) {
+  .toolbar {
+    flex-wrap: wrap;
+  }
+  .pageHeading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .lowStockCounter {
+    align-self: stretch;
+  }
+  .selectControl {
+    width: 100%;
+  }
+  .paginationControls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .categoryClearWrap {
+    width: 100%;
+  }
+}

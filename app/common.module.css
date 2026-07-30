@@ -1,0 +1,38 @@
+.pageContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 22px 24px 36px;
+}
+
+.emptyBox,
+.errorBox {
+  min-height: 180px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #64748b;
+  flex-direction: column;
+}
+
+.errorBox {
+  color: #991b1b;
+}
+
+.errorBox button,
+.errorBox a {
+  border: 1px solid #fecaca;
+  background: #fff;
+  border-radius: 5px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .pageContainer {
+    padding: 16px 12px 28px;
+  }
+}
