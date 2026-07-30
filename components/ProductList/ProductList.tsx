@@ -91,6 +91,7 @@ export default function ProductList() {
           <label className={css.selectControl}>
             <span className={css.srOnly}>Filter by category</span>
             <select
+              name="category"
               value={category}
               onChange={event => updateParams({ category: event.target.value || null, page: null })}
               disabled={categoriesQuery.isPending}

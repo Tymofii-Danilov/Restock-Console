@@ -67,6 +67,7 @@ export default function SearchInput({ initialValue }: Props) {
       <input
         ref={inputRef}
         type="search"
+        name="search"
         defaultValue={initialValue}
         onChange={handleChange}
         className={css.input}
