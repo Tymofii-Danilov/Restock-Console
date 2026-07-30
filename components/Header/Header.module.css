@@ -1,11 +1,11 @@
 .headerSection {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   background: var(--navy);
 }
 
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
   height: 50px;
   padding: 0 24px;
   display: flex;

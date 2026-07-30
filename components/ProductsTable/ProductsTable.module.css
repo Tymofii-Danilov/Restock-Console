@@ -26,15 +26,15 @@
 }
 
 .categoryColumn {
-  width: 19%;
+  width: 15%;
 }
 
 .priceColumn {
-  width: 12%;
+  width: 14%;
 }
 
 .stockColumn {
-  width: 12%;
+  width: 14%;
 }
 
 .productsTable th {
@@ -70,7 +70,6 @@
 .productsTable .noStockRow:hover {
   background: #ffe0e0;
 }
-
 .sortButton {
   border: 0;
   background: none;
@@ -81,9 +80,9 @@
   cursor: pointer;
   font-weight: inherit;
 }
-
 .sortButton span {
   color: #2563eb;
+  font-size: 10px;
 }
 .tableImage {
   display: block;
