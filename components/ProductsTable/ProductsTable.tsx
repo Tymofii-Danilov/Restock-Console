@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { Product, SortDirection, SortField } from '@/types/product';
 import css from './ProductsTable.module.css';
+import { usePathname } from 'next/navigation';
 
 interface ProductsTableProps {
   products: Product[];
@@ -24,7 +25,7 @@ export default function ProductsTable({
     if (sortBy !== field) return '↑↓';
     return sortDirection === 'asc' ? '↑' : '↓';
   };
-
+  const pathname = usePathname();
   return (
     <div className={css.tableShell}>
       <table className={css.productsTable}>
@@ -58,13 +59,14 @@ export default function ProductsTable({
           {products.map(product => {
             const isLow = product.availabilityStatus === 'Low Stock';
             const isNone = product.stock === 0;
+            const productHref = `/product/${product.id}?from=${encodeURIComponent(returnUrl)}`;
             return (
               <tr
                 key={product.id}
                 className={isLow ? css.lowStockRow : isNone ? css.noStockRow : undefined}
               >
                 <td>
-                  <Link href={`/product/${product.id}?from=${encodeURIComponent(returnUrl)}`}>
+                  <Link prefetch={false} href={productHref}>
                     <Image
                       src={product.thumbnail}
                       alt={product.description}
@@ -75,10 +77,7 @@ export default function ProductsTable({
                   </Link>
                 </td>
                 <td>
-                  <Link
-                    href={`/product/${product.id}?from=${encodeURIComponent(returnUrl)}`}
-                    className={css.productName}
-                  >
+                  <Link prefetch={false} href={productHref} className={css.productName}>
                     {product.title}
                   </Link>
                   <span className={css.sku}>{product.sku}</span>
